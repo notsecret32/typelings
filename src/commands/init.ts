@@ -1,6 +1,7 @@
 import { handleError } from '@/utils/handle-error';
 import { highlighter } from '@/utils/highlighter';
 import { logger } from '@/utils/logger';
+import { spinner } from '@/utils/spinner';
 import { Command } from 'commander';
 import fs from 'fs-extra';
 import path from 'path';
@@ -34,9 +35,9 @@ export const init = new Command()
   });
 
 async function runInit(options: InitCommandOptions) {
-  const pathToProject = path.join(options.cwd, 'typelings');
+  const projectPath = path.resolve(options.cwd, 'typelings');
 
-  if (await fs.exists(pathToProject)) {
+  if (await fs.exists(projectPath)) {
     throw new Error(
       'Looks like the `typelings/` folder exists. Delete it and repeat the process.',
     );
@@ -54,7 +55,16 @@ async function runInit(options: InitCommandOptions) {
     process.exit(0);
   }
 
-  await fs.mkdir(pathToProject);
-  process.chdir(pathToProject);
-  await fs.mkdir('.typelings');
+  const initSpinner = spinner('Initializing the project...').start();
+
+  await fs.mkdir(projectPath);
+  process.chdir('typelings');
+  options.cwd = process.cwd();
+
+  const cliPath = import.meta.dirname;
+  const exercisesPath = path.join(cliPath, 'exercises');
+
+  await fs.copy(exercisesPath, options.cwd);
+
+  initSpinner.succeed();
 }
