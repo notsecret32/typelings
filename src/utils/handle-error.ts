@@ -1,11 +1,6 @@
 import { logger } from '@/utils/logger';
 
 export function handleError(error: unknown) {
-  logger.error(
-    'Something went wrong. Please check the error below for more details.',
-  );
-  logger.break();
-
   if (typeof error === 'string') {
     logger.error(error);
     logger.break();
@@ -13,7 +8,7 @@ export function handleError(error: unknown) {
   }
 
   if (error instanceof Error) {
-    logger.error('>', error.message);
+    logger.error(error.message);
     logger.break();
     process.exit(1);
   }
