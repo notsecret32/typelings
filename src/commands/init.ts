@@ -2,6 +2,7 @@ import { handleError } from '@/utils/handle-error';
 import { highlighter } from '@/utils/highlighter';
 import { logger } from '@/utils/logger';
 import { spinner } from '@/utils/spinner';
+import { PACKAGE_JSON, README, TS_CONFIG } from '@/utils/templates';
 import { Command } from 'commander';
 import fs from 'fs-extra';
 import path from 'path';
@@ -65,6 +66,10 @@ async function runInit(options: InitCommandOptions) {
   const exercisesPath = path.join(cliPath, 'exercises');
 
   await fs.copy(exercisesPath, options.cwd);
+
+  await fs.writeFile(path.join(projectPath, 'package.json'), PACKAGE_JSON);
+  await fs.writeFile(path.join(projectPath, 'tsconfig.json'), TS_CONFIG);
+  await fs.writeFile(path.join(projectPath, 'README.md'), README);
 
   initSpinner.succeed();
 }
