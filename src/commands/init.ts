@@ -11,6 +11,7 @@ import { PACKAGE_JSON, README, TS_CONFIG } from '@/utils/templates';
 import { Command } from 'commander';
 import { execa } from 'execa';
 import fs from 'fs-extra';
+import kleur from 'kleur';
 import path from 'path';
 import prompts from 'prompts';
 import { z } from 'zod';
@@ -55,7 +56,9 @@ async function runInit(options: InitCommandOptions) {
     name: 'proceed',
     type: 'confirm',
     message:
-      'This command will create the directory `typelings/`.\nDo you agree?',
+      kleur.reset('This command will create the directory ') +
+      kleur.bold('`typelings/`') +
+      kleur.reset('.\nDo you agree?'),
     initial: true,
   });
 
@@ -92,7 +95,7 @@ async function runInit(options: InitCommandOptions) {
   const { packageManager } = await prompts({
     name: 'packageManager',
     type: 'select',
-    message: 'Select package manager',
+    message: kleur.reset('Select package manager'),
     choices: getInstalledPackageManagersPrompt(installedPackageManagers),
   });
 
