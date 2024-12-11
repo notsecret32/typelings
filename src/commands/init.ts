@@ -2,9 +2,14 @@ import { TypelingsError } from '@/utils/errors';
 import { handleError } from '@/utils/handle-error';
 import { highlighter } from '@/utils/highlighter';
 import { logger } from '@/utils/logger';
+import {
+  getInstalledPackageManagers,
+  getInstalledPackageManagersPrompt,
+} from '@/utils/package-managers';
 import { spinner } from '@/utils/spinner';
 import { PACKAGE_JSON, README, TS_CONFIG } from '@/utils/templates';
 import { Command } from 'commander';
+import { execa } from 'execa';
 import fs from 'fs-extra';
 import path from 'path';
 import prompts from 'prompts';
@@ -74,4 +79,34 @@ async function runInit(options: InitCommandOptions) {
   await fs.writeFile(path.join(projectPath, 'README.md'), README);
 
   initSpinner.succeed();
+
+  const installedPackageManagers = await getInstalledPackageManagers();
+
+  if (installedPackageManagers.length === 0) {
+    throw new TypelingsError(
+      "You don't have any package manager installed. Install it and repeat the process.",
+      { name: 'ERR_NO_INSTALLED_PACKAGE_MANAGERS' },
+    );
+  }
+
+  const { packageManager } = await prompts({
+    name: 'packageManager',
+    type: 'select',
+    message: 'Select package manager',
+    choices: getInstalledPackageManagersPrompt(installedPackageManagers),
+  });
+
+  if (!packageManager) {
+    throw new TypelingsError('You have not selected a package manager', {
+      name: 'NO_SELECTED_PACKAGE_MANAGER',
+    });
+  }
+
+  const installDependenciesSpinner = spinner(
+    'Installing dependencies...',
+  ).start();
+
+  await execa`${packageManager} install`;
+
+  installDependenciesSpinner.succeed();
 }

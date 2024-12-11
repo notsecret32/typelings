@@ -1,4 +1,7 @@
-type TypelingsErrorName = 'ERR_DIR_ALREADY_EXISTS';
+type TypelingsErrorName =
+  | 'ERR_DIR_ALREADY_EXISTS'
+  | 'ERR_NO_INSTALLED_PACKAGE_MANAGERS'
+  | 'NO_SELECTED_PACKAGE_MANAGER';
 
 interface TypelingsErrorImpl {
   name: TypelingsErrorName;
@@ -27,4 +30,6 @@ export class TypelingsError extends Error implements TypelingsErrorImpl {
 
 const errorCodes: Record<TypelingsErrorName, number> = {
   ERR_DIR_ALREADY_EXISTS: 1,
+  ERR_NO_INSTALLED_PACKAGE_MANAGERS: 2,
+  NO_SELECTED_PACKAGE_MANAGER: 3,
 };
