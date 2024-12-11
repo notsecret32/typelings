@@ -1,3 +1,4 @@
+import { TypelingsError } from '@/utils/errors';
 import { handleError } from '@/utils/handle-error';
 import { highlighter } from '@/utils/highlighter';
 import { logger } from '@/utils/logger';
@@ -39,8 +40,9 @@ async function runInit(options: InitCommandOptions) {
   const projectPath = path.resolve(options.cwd, 'typelings');
 
   if (await fs.exists(projectPath)) {
-    throw new Error(
+    throw new TypelingsError(
       'Looks like the `typelings/` folder exists. Delete it and repeat the process.',
+      { name: 'ERR_DIR_ALREADY_EXISTS' },
     );
   }
 
