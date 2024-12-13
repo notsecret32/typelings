@@ -101,7 +101,7 @@ async function runInit(options: InitCommandOptions) {
 
   if (!packageManager) {
     throw new TypelingsError('You have not selected a package manager', {
-      name: 'NO_SELECTED_PACKAGE_MANAGER',
+      name: 'ERR_NO_SELECTED_PACKAGE_MANAGER',
     });
   }
 
