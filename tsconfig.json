@@ -4,6 +4,8 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src",
     "composite": false,
     "declaration": true,
     "declarationMap": true,
@@ -17,9 +19,9 @@
     "strict": true,
     "isolatedModules": false,
     "resolveJsonModule": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"]
     }
   },
   "include": ["src/**/*.ts"],
