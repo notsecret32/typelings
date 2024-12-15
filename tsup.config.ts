@@ -10,6 +10,15 @@ export default defineConfig({
   minify: true,
   target: 'esnext',
   outDir: 'dist',
+  ignoreWatch: [
+    '.changeset',
+    '.github',
+    '.husky',
+    'coverage',
+    'dist',
+    'node_modules',
+    'test',
+  ],
   onSuccess: async () => {
     await fs.copy('exercises', 'dist/exercises');
     await fs.copy('solutions', 'dist/solutions');
