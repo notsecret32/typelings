@@ -1,0 +1,16 @@
+title: Variables
+description: In this chapter, we’ll cover some of the most common types of values you’ll find in JavaScript code, and explain the corresponding ways to describe those types in TypeScript.
+
+exercises:
+  variables1:
+    title: Basic Types
+    description: Replace all `any` with the appropriate type
+    hint: |
+      Read this article to solve the exercises:
+
+      https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
+
+authors:
+  - name: Alexander Skvorchevskiy
+    email: alex.skvorchevskiy@gmail.com
+    url: https://github.com/notsecret32

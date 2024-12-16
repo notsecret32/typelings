@@ -21,6 +21,5 @@ export default defineConfig({
   ],
   onSuccess: async () => {
     await fs.copy('exercises', 'dist/exercises');
-    await fs.copy('solutions', 'dist/solutions');
   },
 });

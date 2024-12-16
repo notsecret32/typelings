@@ -1,9 +1,14 @@
 export const PACKAGE_JSON = `{
-	"name": "typelings",
-	"devDependencies": {
+  "name": "typelings",
+  "types": "index.d.ts",
+  "files": [
+    "index.d.ts"
+  ],
+  "devDependencies": {
     "typescript": "5.7.2"
   }
-}`;
+}
+`;
 
 export const TS_CONFIG = `{
  "compilerOptions": {
