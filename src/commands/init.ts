@@ -46,10 +46,7 @@ async function runInit(options: InitCommandOptions) {
   const projectPath = path.resolve(options.cwd, 'typelings');
 
   if (await fs.exists(projectPath)) {
-    throw new TypelingsError(
-      'Looks like the `typelings/` folder exists. Delete it and repeat the process.',
-      { name: 'ERR_DIR_ALREADY_EXISTS' },
-    );
+    throw new TypelingsError('ERR_DIR_ALREADY_EXISTS');
   }
 
   const { proceed } = await prompts({
@@ -86,10 +83,7 @@ async function runInit(options: InitCommandOptions) {
   const installedPackageManagers = await getInstalledPackageManagers();
 
   if (installedPackageManagers.length === 0) {
-    throw new TypelingsError(
-      "You don't have any package manager installed. Install it and repeat the process.",
-      { name: 'ERR_NO_INSTALLED_PACKAGE_MANAGERS' },
-    );
+    throw new TypelingsError('ERR_NO_INSTALLED_PACKAGE_MANAGERS');
   }
 
   const { packageManager } = await prompts({
@@ -100,9 +94,7 @@ async function runInit(options: InitCommandOptions) {
   });
 
   if (!packageManager) {
-    throw new TypelingsError('You have not selected a package manager', {
-      name: 'ERR_NO_SELECTED_PACKAGE_MANAGER',
-    });
+    throw new TypelingsError('ERR_NO_SELECTED_PACKAGE_MANAGER');
   }
 
   const installDependenciesSpinner = spinner(

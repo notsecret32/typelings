@@ -3,29 +3,36 @@ import { describe, it } from '@jest/globals';
 
 describe('TypelingsError', () => {
   it('should create an instance of TypelingsError with correct properties', () => {
-    const errorMessage = 'Directory already exists';
-    const errorName = 'ERR_DIR_ALREADY_EXISTS';
-    const error = new TypelingsError(errorMessage, { name: errorName });
+    const errorType = 'ERR_DIR_ALREADY_EXISTS';
+    const error = new TypelingsError(errorType);
 
     expect(error).toBeInstanceOf(TypelingsError);
-    expect(error.name).toBe(errorName);
-    expect(error.message).toBe(errorMessage);
+    expect(error.type).toBe(errorType);
+    expect(error.code).toBe(1);
+  });
+
+  it('should create an instance of TypelingsError with custom message', () => {
+    const customMessage = 'Directory already exists';
+    const errorType = 'ERR_DIR_ALREADY_EXISTS';
+    const error = new TypelingsError(errorType, { message: customMessage });
+
+    expect(error).toBeInstanceOf(TypelingsError);
+    expect(error.type).toBe(errorType);
+    expect(error.message).toBe(customMessage);
     expect(error.code).toBe(1);
   });
 
   it('should throw an error for an invalid error name', () => {
-    const errorMessage = 'No installed package managers';
-    const invalidErrorName = 'ERR_NO_INSTALLED_PACKAGE_MANAGERS';
+    const invalidErrorType = 'ERR_NO_INSTALLED_PACKAGE_MANAGERS';
 
     expect(() => {
-      throw new TypelingsError(errorMessage, { name: invalidErrorName });
+      throw new TypelingsError(invalidErrorType);
     }).toThrow(TypelingsError);
   });
 
   it('should preserve the stack trace', () => {
-    const errorMessage = 'No installed package managers';
-    const errorName = 'ERR_NO_INSTALLED_PACKAGE_MANAGERS';
-    const error = new TypelingsError(errorMessage, { name: errorName });
+    const errorType = 'ERR_NO_INSTALLED_PACKAGE_MANAGERS';
+    const error = new TypelingsError(errorType);
 
     expect(error.stack).toBeDefined();
   });

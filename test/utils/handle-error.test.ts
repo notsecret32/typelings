@@ -43,9 +43,7 @@ describe('error handling', () => {
   });
 
   it('if error is Typelings', () => {
-    const typelingsError = new TypelingsError('This is a Typelings error', {
-      name: 'ERR_DIR_ALREADY_EXISTS',
-    });
+    const typelingsError = new TypelingsError('ERR_DIR_ALREADY_EXISTS');
     handleError(typelingsError);
 
     expect(logger.error).toHaveBeenCalledWith(

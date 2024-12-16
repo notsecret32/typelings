@@ -21,7 +21,7 @@ export function handleError(error: unknown) {
   }
 
   if (error instanceof TypelingsError) {
-    logger.error(`${kleur.bgRed().black(error.name)}: ${error.message}`);
+    logger.error(`${kleur.bgRed().black(error.type)}: ${error.message}`);
     logger.break();
 
     logger.error(`Process terminated with error. Exit code: ${error.code}.`);
