@@ -1,7 +1,7 @@
 import { execa } from 'execa';
 import { Choice } from 'prompts';
 
-type PackageManager = 'npm' | 'yarn' | 'pnpm' | 'bun';
+export type PackageManager = 'npm' | 'yarn' | 'pnpm' | 'bun';
 
 const packageManagers: PackageManager[] = ['npm', 'yarn', 'pnpm', 'bun'];
 
@@ -23,7 +23,7 @@ export async function getInstalledPackageManagers() {
   return installed;
 }
 
-export function getInstalledPackageManagersPrompt(
+export function createPackageManagerChoices(
   installedPackageManagers: PackageManager[],
 ): Choice[] {
   return packageManagers.map<Choice>((packageManager) =>
