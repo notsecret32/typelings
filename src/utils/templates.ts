@@ -11,7 +11,7 @@ export const PACKAGE_JSON = `{
 `;
 
 export const TS_CONFIG = `{
- "compilerOptions": {
+  "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
     "strict": true,
