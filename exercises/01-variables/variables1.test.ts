@@ -1,8 +1,6 @@
-import { Equal, Expect } from '../index';
-
 type cases = [
-  Expect<Equal<string, typeof variables1>>,
-  Expect<Equal<string, typeof variables2>>,
-  Expect<Equal<string, typeof variables3>>,
-  Expect<Equal<string, typeof variables4>>,
+  Expect<Equal<string, typeof variable1>>,
+  Expect<Equal<number, typeof variable2>>,
+  ExpectFalse<Equal<boolean, typeof variable3>>,
+  Expect<Equal<Array<number>, typeof variable4>>,
 ];
